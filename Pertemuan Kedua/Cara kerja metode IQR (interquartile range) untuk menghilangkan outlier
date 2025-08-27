@@ -1,0 +1,31 @@
+# Cara Kerja Metode Interquartile Range (IQR) untuk Menghilangkan Outlier
+
+Metode **Interquartile Range (IQR)** adalah pendekatan statistik yang efektif untuk mengidentifikasi dan menghilangkan *outlier* (nilai ekstrem) dari sebuah dataset. Cara kerjanya adalah dengan menetapkan "batas wajar" di sekitar sebagian besar data. Nilai apa pun yang berada di luar batas ini akan dianggap sebagai *outlier*.
+
+Prosesnya dapat diringkas dalam tiga langkah sederhana:
+
+### 1. Menemukan Pusat Data
+Pertama, metode ini mengidentifikasi "inti" atau 50% data yang berada di tengah dengan menghitung kuartil:
+- **Kuartil 1 (Q1)**: Titik yang memisahkan 25% data terbawah.
+- **Kuartil 3 (Q3)**: Titik yang memisahkan 75% data terbawah.
+
+Selisih antara keduanya disebut **Interquartile Range (IQR)**, yang merepresentasikan sebaran utama dari data Anda.
+`IQR = Q3 - Q1`
+
+### 2. Membangun "Pagar" Statistik
+Selanjutnya, kita membuat sebuah "pagar" imajiner di sekitar rentang IQR untuk menentukan batas data yang dianggap wajar. Aturan umum yang digunakan adalah 1.5 kali nilai IQR.
+- **Batas Bawah** = `Q1 - (1.5 * IQR)`
+- **Batas Atas** = `Q3 + (1.5 * IQR)`
+
+### 3. Mengidentifikasi dan Menghilangkan Outlier
+Langkah terakhir adalah memfilter data. Setiap titik data yang nilainya:
+- **Lebih rendah** dari Batas Bawah, atau
+- **Lebih tinggi** dari Batas Atas
+
+...akan diidentifikasi sebagai **outlier** dan dapat dihilangkan dari dataset.
+
+> **Analogi Sederhana**: Bayangkan data Anda adalah sekelompok orang di sebuah lapangan. **IQR** adalah area di mana sebagian besar orang berkumpul. Anda kemudian membuat pagar (Batas Atas dan Bawah) di sekeliling kelompok ini. Siapa pun yang berdiri terlalu jauh di luar pagar dianggap bukan bagian dari kelompok utama (*outlier*) dan dikeluarkan.
+
+---
+
+Metode inilah yang digunakan dalam fungsi `remove_outliers_iqr()` pada *notebook* untuk membersihkan dataset Minat Baca Indonesia sebelum dinormalisasi.
